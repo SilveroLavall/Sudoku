@@ -6,7 +6,15 @@ internal class SudokuEngine(string sudokuPuzzle)
 
     public void SolveSudoku()
     {
+        var watch = new System.Diagnostics.Stopwatch();
+        Console.WriteLine("Stopwatch word gestart");
+        watch.Start();
         SolveSudoku(Data.Puzzle);
+        watch.Stop();
+        Console.WriteLine("Stopwatch is gestopt");
+        DisplayPuzzle();
+        DisplaySolutions();
+        Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
     }
 
     private void SolveSudoku(Sudoku sudoku)
