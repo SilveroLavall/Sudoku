@@ -7,18 +7,20 @@ internal class SudokuEngine(string sudokuPuzzle)
     public void SolveSudoku()
     {
         var watch = new System.Diagnostics.Stopwatch();
-        Console.WriteLine("Stopwatch word gestart");
+        Console.WriteLine($"{DateTime.Now} Stopwatch word gestart.");
         watch.Start();
         SolveSudoku(Data.Puzzle);
         watch.Stop();
-        Console.WriteLine("Stopwatch is gestopt");
+        Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
         DisplayPuzzle();
         DisplaySolutions();
+        Console.WriteLine($"Solved in {Data.CalculationCycle} cycles.");
         Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
     }
 
     private void SolveSudoku(Sudoku sudoku)
     {
+        ++Data.CalculationCycle;
         if (Data.Solutions.Count > 99)
         {
             return;
@@ -31,7 +33,7 @@ internal class SudokuEngine(string sudokuPuzzle)
         if (sudoku.State == Sudoku.SudokuStates.Unsolved)
         {
             var index = sudoku.IndexFirstZero();
-            foreach (int guess in new int[] { 1,2,3,4,5,6,7,8,9}) 
+            foreach (int guess in sudoku.GetOptions(index)) 
             {
                 SolveSudoku(sudoku.UpdateNewSudoku(index, guess));
             }

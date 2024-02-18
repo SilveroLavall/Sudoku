@@ -49,6 +49,19 @@ internal class Sudoku
     {
         return Array.IndexOf(SudokuNumbers, 0);
     }
+
+    public IEnumerable<int> GetOptions(int indexSudokuNumber)
+    {
+        int position = indexSudokuNumber%9;
+        int startRow = indexSudokuNumber-position;
+        int[] indexedRow = new int[9]; 
+        for (int i = 0; i < 9; i++)
+        {
+            indexedRow[i] = SudokuNumbers[startRow+i];
+        }
+        int[] AllOptions = [1,2,3,4,5,6,7,8,9];
+        return AllOptions.Except(indexedRow);
+    }
     public Sudoku UpdateNewSudoku(int index, int value)
     {
         List<int> newSudoku = [.. SudokuNumbers];
