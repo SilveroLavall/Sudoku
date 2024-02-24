@@ -16,32 +16,29 @@ internal class Sudoku
         SudokuNumbers = ToNumbers(sudokuString);
         State = CheckSudokuState();
     }
-
     public Sudoku(int[] sudokuNumbers)
     {
         SudokuNumbers = sudokuNumbers;
         State = CheckSudokuState();
     }
 
-    public static int[] ToNumbers(string sudokuString) 
+    private static int[] ToNumbers(string sudokuString) 
     {
         return sudokuString.Select(s => Convert.ToInt32(s) - 48).ToArray();
     }
-
     public override string ToString()
     {
         return string.Concat(SudokuNumbers.Select(s => s.ToString()));
     }
-
     private SudokuStates CheckSudokuState()
     {
-        if (IsInvalid())
-        {
-            return SudokuStates._Invalid;
-        }
         if (SudokuNumbers.Contains(0))
         {
             return SudokuStates.Unsolved;
+        }
+        if (IsInvalid())
+        {
+            return SudokuStates._Invalid;
         }
         return SudokuStates.__Solved;
     }
@@ -49,16 +46,33 @@ internal class Sudoku
     {
         return Array.IndexOf(SudokuNumbers, 0);
     }
-
     public IEnumerable<int> GetOptions(int indexSudokuNumber)
     {
-        int position = indexSudokuNumber%9;
+        int position = indexSudokuNumber % 9;
         int startRow = indexSudokuNumber-position;
-        int[] indexedRow = new int[9]; 
+        int[] indexedRow = new int[27]; 
         for (int i = 0; i < 9; i++)
         {
             indexedRow[i] = SudokuNumbers[startRow+i];
         }
+        for (int i = 0; i < 9; i++)
+        {
+            indexedRow[9 + i] = SudokuNumbers[position + (i * 9)];
+        }
+
+        int vectorVertical = ((indexSudokuNumber / 9) % 3) * 9;
+        int vectorHorizontal = indexSudokuNumber % 3;
+        int startSquare = indexSudokuNumber - vectorVertical - vectorHorizontal;
+        indexedRow[18] = SudokuNumbers[startSquare];
+        indexedRow[19] = SudokuNumbers[startSquare+1];
+        indexedRow[20] = SudokuNumbers[startSquare+2];
+        indexedRow[21] = SudokuNumbers[startSquare+9];
+        indexedRow[22] = SudokuNumbers[startSquare+10];
+        indexedRow[23] = SudokuNumbers[startSquare+11];
+        indexedRow[24] = SudokuNumbers[startSquare+18];
+        indexedRow[25] = SudokuNumbers[startSquare+19];
+        indexedRow[26] = SudokuNumbers[startSquare+20];
+
         int[] AllOptions = [1,2,3,4,5,6,7,8,9];
         return AllOptions.Except(indexedRow);
     }
@@ -68,12 +82,10 @@ internal class Sudoku
         newSudoku[index] = value;
         return new(newSudoku.ToArray());
     }
-
     private bool IsInvalid()
     {
         return IsRowsInvalid();
     }
-
     private bool IsRowsInvalid()
     {
         foreach (var rownr in new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 })
