@@ -21,15 +21,6 @@ internal class Sudoku
         SudokuNumbers = sudokuNumbers;
         State = CheckSudokuState();
     }
-
-    private static int[] ToNumbers(string sudokuString) 
-    {
-        return sudokuString.Select(s => Convert.ToInt32(s) - 48).ToArray();
-    }
-    public override string ToString()
-    {
-        return string.Concat(SudokuNumbers.Select(s => s.ToString()));
-    }
     private SudokuStates CheckSudokuState()
     {
         if (SudokuNumbers.Contains(0))
@@ -41,6 +32,11 @@ internal class Sudoku
             return SudokuStates._Invalid;
         }
         return SudokuStates.__Solved;
+    }
+
+    public override string ToString()
+    {
+        return string.Concat(SudokuNumbers.Select(s => s.ToString()));
     }
     public int IndexFirstZero()
     {
@@ -60,7 +56,7 @@ internal class Sudoku
             indexedRow[9 + i] = SudokuNumbers[position + (i * 9)];
         }
 
-        int vectorVertical = ((indexSudokuNumber / 9) % 3) * 9;
+        int vectorVertical = indexSudokuNumber / 9 % 3 * 9;
         int vectorHorizontal = indexSudokuNumber % 3;
         int startSquare = indexSudokuNumber - vectorVertical - vectorHorizontal;
         indexedRow[18] = SudokuNumbers[startSquare];
@@ -136,5 +132,9 @@ internal class Sudoku
         }
 
         return false;
+    }
+    private static int[] ToNumbers(string sudokuString) 
+    {
+        return sudokuString.Select(s => Convert.ToInt32(s) - 48).ToArray();
     }
 }
