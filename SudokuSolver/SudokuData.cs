@@ -1,8 +1,8 @@
 ﻿namespace SudokuSolver;
 
-internal class SudokuData(Sudoku puzzle)
+internal class SudokuData(int[] puzzle)
 {
-    public Sudoku Puzzle { get; set; } = puzzle;
-    public List<Sudoku> Solutions { get; set; } = [];
+    public int[] Puzzle { get; set; } = puzzle;
+    public List<int[]> Solutions { get; set; } = [];
     public int CalculationCycle { get; set; } = 0;
 }
