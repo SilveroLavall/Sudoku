@@ -1,8 +1,8 @@
 ﻿namespace SudokuSolver;
 
-internal class SudokuEngine(string sudokuPuzzle)
+internal class SudokuEngine
 {
-    private SudokuData Data { get; set; } = new(ToNumbers(sudokuPuzzle));
+    private SudokuData Data { get; set; }
     private static readonly Dictionary<int, int[]> SudokuCollectionMapping = new()
     {
         { 0,[0,0,0]},
@@ -123,13 +123,22 @@ internal class SudokuEngine(string sudokuPuzzle)
         {7, [57, 58, 59, 66, 67, 68, 75, 76, 77]},
         {8, [60, 61, 62, 69, 70, 71, 78, 79, 80]}
     };
-    private static readonly int[] AllOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    private static readonly Dictionary<int, int[]> CombinedGroups = [];
     private bool Continue = true;
     private enum SudokuStates
     {
         Unsolved,
         __Solved,
         _Invalid
+    }
+
+    internal SudokuEngine(string sudokuPuzzle)
+    {
+        Data = new(ToNumbers(sudokuPuzzle));
+        foreach (var item in SudokuCollectionMapping)
+        {
+            CombinedGroups.Add(item.Key, [.. HorizontalLines[item.Value[0]], .. VerticalLines[item.Value[1]], .. Square[item.Value[2]]]);
+        }
     }
 
     public void SolveSudoku()
@@ -156,9 +165,9 @@ internal class SudokuEngine(string sudokuPuzzle)
         {
             case SudokuStates.Unsolved:
                 var index = Array.IndexOf(sudokuNumbers, 0);
-                Parallel.ForEach(GetOptions(index, sudokuNumbers), n =>
+                Parallel.ForEach(GetOptions(index, sudokuNumbers), option =>
                 {
-                    SolveSudoku(UpdateNewSudokuNumber(index, n, sudokuNumbers));
+                    SolveSudoku(UpdateNewSudokuNumber(index, option, sudokuNumbers));
                 });
                 break;
             case SudokuStates._Invalid:
@@ -178,13 +187,37 @@ internal class SudokuEngine(string sudokuPuzzle)
         //DisplayPuzzle(sudokuNumbers);
         ++Data.CalculationCycle;
 
+        var index = Array.IndexOf(sudokuNumbers, 0);
+        if (index > -1)
+        {
+            foreach (int option in GetOptions(index, sudokuNumbers))
+            {
+                SolveSudoku(UpdateNewSudokuNumber(index, option, sudokuNumbers));
+            }
+        }
+        else if (IsRowsInvalid(sudokuNumbers))
+        {
+            DisplayInvalid(sudokuNumbers);
+        }
+        else
+        {
+            Data.Solutions.Add(sudokuNumbers);
+            if (Data.Solutions.Count > 0) Continue = false;
+        }
+    }
+    private void SolveSudoku2(int[] sudokuNumbers)
+    {
+        if (!Continue) return;
+        //DisplayPuzzle(sudokuNumbers);
+        ++Data.CalculationCycle;
+
         switch (CheckSudokuState(sudokuNumbers))
         {
             case SudokuStates.Unsolved:
                 var index = Array.IndexOf(sudokuNumbers, 0);
-                foreach (int guess in GetOptions(index, sudokuNumbers))
+                foreach (int option in GetOptions(index, sudokuNumbers))
                 {
-                    SolveSudoku(UpdateNewSudokuNumber(index, guess, sudokuNumbers));
+                    SolveSudoku(UpdateNewSudokuNumber(index, option, sudokuNumbers));
                 }
                 break;
             case SudokuStates._Invalid:
@@ -198,7 +231,6 @@ internal class SudokuEngine(string sudokuPuzzle)
                 break;
         }
     }
-
     private static int[] ToNumbers(string sudokuString)
     {
         return sudokuString.Select(s => Convert.ToInt32(s) - 48).ToArray();
@@ -265,28 +297,20 @@ internal class SudokuEngine(string sudokuPuzzle)
         }
         return false;
     }
-    private static IEnumerable<int> GetOptions(int indexSudokuNumber, int[] numbers)
+    private static List<int> GetOptions(int indexSudokuNumber, int[] numbers)
     {
-        var groups = SudokuCollectionMapping[indexSudokuNumber];
-        var hline = HorizontalLines[groups[0]];
-        var vline = VerticalLines[groups[1]];
-        var square = Square[groups[2]];
-        int[] used = new int[27];
-        int index = 0;
-        for (int i = 0; i < 9; i++)
+        var combinedNumbers = CombinedGroups[indexSudokuNumber];
+        var used = new bool[10];
+        for (int i = 0; i < 27; i++)
         {
-            used[index++] = numbers[hline[i]];
+            used[numbers[combinedNumbers[i]]] = true;
         }
-        for (int i = 0; i < 9; i++)
+        List<int> options = [];
+        for (int i = 1; i < 10; i++)
         {
-            used[index++] = numbers[vline[i]];
+            if (!used[i]) options.Add(i);
         }
-        for (int i = 0; i < 9; i++)
-        {
-            used[index++] = numbers[square[i]];
-        }
-
-        return AllOptions.Except(used);
+        return options;
     }
     private static int[] UpdateNewSudokuNumber(int index, int value, int[] numbers)
     {
