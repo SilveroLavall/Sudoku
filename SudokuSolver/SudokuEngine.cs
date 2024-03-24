@@ -205,32 +205,6 @@ internal class SudokuEngine
             if (Data.Solutions.Count > 0) Continue = false;
         }
     }
-    private void SolveSudoku2(int[] sudokuNumbers)
-    {
-        if (!Continue) return;
-        //DisplayPuzzle(sudokuNumbers);
-        ++Data.CalculationCycle;
-
-        switch (CheckSudokuState(sudokuNumbers))
-        {
-            case SudokuStates.Unsolved:
-                var index = Array.IndexOf(sudokuNumbers, 0);
-                foreach (int option in GetOptions(index, sudokuNumbers))
-                {
-                    SolveSudoku(UpdateNewSudokuNumber(index, option, sudokuNumbers));
-                }
-                break;
-            case SudokuStates._Invalid:
-                DisplayInvalid(sudokuNumbers);
-                break;
-            case SudokuStates.__Solved:
-                Data.Solutions.Add(sudokuNumbers);
-                if (Data.Solutions.Count > 0) Continue = false;
-                break;
-            default:
-                break;
-        }
-    }
     private static int[] ToNumbers(string sudokuString)
     {
         return sudokuString.Select(s => Convert.ToInt32(s) - 48).ToArray();
