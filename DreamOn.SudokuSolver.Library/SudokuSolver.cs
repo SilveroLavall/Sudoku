@@ -38,13 +38,13 @@ internal class SudokuSolver(SudokuResponse Response)
     {
         if (!Continue) return;
         ++Response.CalculationCycle;
-
         var index = Array.IndexOf(sudokuNumbers, 0);
         if (index > -1)
         {
-            foreach (int option in GetOptions(index, sudokuNumbers))
+            var used = GetOptionsUsage(index, sudokuNumbers);
+            for (int i = 1; i < 10; i++)
             {
-                SolveSudoku(UpdateNewSudokuNumber(index, option, sudokuNumbers));
+                if (!used[i]) SolveSudoku(UpdateNewSudokuNumber(index, i, sudokuNumbers));
             }
         }
         else if (IsRowsInvalid(sudokuNumbers))
@@ -123,7 +123,7 @@ internal class SudokuSolver(SudokuResponse Response)
     {
         var combinedNumbers = SudokuEngine.SudokuNumberPositionsMapping[indexSudokuNumber];
         var used = new bool[10];
-        for (int i = 0; i < 27; i++)
+        for (int i = 0; i < 21; i++)
         {
             used[numbers[combinedNumbers[i]]] = true;
         }
@@ -134,10 +134,32 @@ internal class SudokuSolver(SudokuResponse Response)
         }
         return options;
     }
+    private static bool[] GetOptionsUsage(int indexSudokuNumber, int[] numbers)
+    {
+        var combinedNumbers = SudokuEngine.SudokuNumberPositionsMapping[indexSudokuNumber];
+        var used = new bool[10];
+        for (int i = 0; i < 21; i++)
+        {
+            used[numbers[combinedNumbers[i]]] = true;
+        }
+        return used;
+    }
     private static int[] UpdateNewSudokuNumber(int index, int value, int[] numbers)
     {
         int[] newSudoku = numbers[..];
         newSudoku[index] = value;
         return newSudoku;
+    }
+    private static int FirstZeroPosition(int[] numbers) // Slow
+    {
+        int i = 0;
+        while (i < 81 && numbers[i] != 0) i++;
+        return i == 81 ? -1 : i;
+
+        //for (int i = 0; i < 81; i++)
+        //{
+        //    if (numbers[i] == 0) return i;
+        //}
+        //return -1;
     }
 }
