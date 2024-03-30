@@ -146,7 +146,10 @@ internal class SudokuSolver(SudokuResponse Response)
     }
     private static int[] UpdateNewSudokuNumber(int index, int value, int[] numbers)
     {
-        int[] newSudoku = numbers[..];
+        //int[] newSudoku = numbers[..];
+        //int[] newSudoku = (int[]) numbers.Clone();
+        int[] newSudoku = new int[81];
+        Array.Copy(numbers, newSudoku, 81);
         newSudoku[index] = value;
         return newSudoku;
     }
