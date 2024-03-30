@@ -2,7 +2,7 @@
 
 public class SudokuEngine
 {
-    internal static readonly Dictionary<int, int[]> SudokuNumberPositionsMapping = InitProvider.GetSudokuNumberPositionsMapping();
+    internal static readonly int[][] SudokuNumberPositionsMapping = InitProvider.GetSudokuNumberPositionsMapping();
 
     public static SudokuResponse SolveSudoku(string sudokuPuzzle)
     {

@@ -1,16 +1,21 @@
-﻿using DreamOn.SudokuSolver.Library.Extensions;
+﻿using System.Diagnostics;
+using DreamOn.SudokuSolver.Library;
+using DreamOn.SudokuSolver.Library.Extensions;
 
 string[] puzzles = [
+    "000309000000000068070000000800040000000700100206000000000970000000086000030000500",
+    "000309000000000068070000000800040000000700100206000000000970000000086000030000500",
+    "000309000000000068070000000800040000000700100206000000000970000000086000030000500",
     "000309000000000068070000000800040000000700100206000000000970000000086000030000500",
     "000309000000000068070000000800040000000700100206000000000970000000086000030000500"
 ];
 
 foreach (var puzzle in puzzles)
 {
-    var watch = new System.Diagnostics.Stopwatch();
+    var watch = new Stopwatch();
     Console.WriteLine($"{DateTime.Now} Stopwatch word gestart.");
     watch.Start();
-    var response = DreamOn.SudokuSolver.Library.SudokuEngine.SolveSudoku(puzzle);
+    var response = SudokuEngine.SolveSudoku(puzzle);
     watch.Stop();
     Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
     response.DisplayPuzzle();

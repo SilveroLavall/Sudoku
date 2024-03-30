@@ -123,12 +123,13 @@ internal class InitProvider
         {8, [60, 61, 62, 69, 70, 71, 78, 79, 80]}
     };
 
-    internal static Dictionary<int, int[]> GetSudokuNumberPositionsMapping()
+    internal static int[][] GetSudokuNumberPositionsMapping()
     {
-        Dictionary<int, int[]> sudokuNumberPositionsMapping = [];
+        int[][] sudokuNumberPositionsMapping = new int[81][];
         foreach (var item in SudokuCollectionMapping)
         {
-            sudokuNumberPositionsMapping.Add(item.Key, [.. HorizontalLines[item.Value[0]], .. VerticalLines[item.Value[1]], .. Square[item.Value[2]]]);
+            int[] merged = [.. HorizontalLines[item.Value[0]], .. VerticalLines[item.Value[1]], .. Square[item.Value[2]]];
+            sudokuNumberPositionsMapping[item.Key] = merged.Distinct().ToArray();
         }
         return sudokuNumberPositionsMapping;
     }
