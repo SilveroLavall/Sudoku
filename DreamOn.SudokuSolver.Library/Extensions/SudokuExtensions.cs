@@ -26,9 +26,5 @@
         {
             return string.Concat(numbers.Select(s => s.ToString()));
         }
-        public static int[] ConvertToNumbers(this string sudokuString)
-        {
-            return sudokuString.Select(s => Convert.ToInt32(s) - 48).ToArray();
-        }
     }
 }

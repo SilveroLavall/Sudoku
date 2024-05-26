@@ -153,16 +153,4 @@ internal class SudokuSolver(SudokuResponse Response)
         newSudoku[index] = value;
         return newSudoku;
     }
-    private static int FirstZeroPosition(int[] numbers) // Slow
-    {
-        int i = 0;
-        while (i < 81 && numbers[i] != 0) i++;
-        return i == 81 ? -1 : i;
-
-        //for (int i = 0; i < 81; i++)
-        //{
-        //    if (numbers[i] == 0) return i;
-        //}
-        //return -1;
-    }
 }
