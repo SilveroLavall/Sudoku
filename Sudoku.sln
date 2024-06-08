@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		AppleMacMiniM2.md = AppleMacMiniM2.md
 		AsusVivobook.md = AsusVivobook.md
 		LenovoX1Carbon.md = LenovoX1Carbon.md
+		Razor.md = Razor.md
 		Readme.md = Readme.md
 		Surfium.md = Surfium.md
 	EndProjectSection
@@ -15,6 +16,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DreamOn.SudokuSolver.Library", "DreamOn.SudokuSolver.Library\DreamOn.SudokuSolver.Library.csproj", "{75F259E1-72FC-4B3D-A32D-21EF8561BC0E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DreamOn.SudokuSolver.Console", "DreamOn.SudokuSolver.Console\DreamOn.SudokuSolver.Console.csproj", "{09C10CDB-AEC6-4797-8659-C3C84CBAB143}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamOn.SudokuSolver.RazorSudoku", "DreamOn.SudokuSolver.RazorSudoku\DreamOn.SudokuSolver.RazorSudoku.csproj", "{388CD2F0-541D-44AF-B4BC-997AAC6C84EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +33,10 @@ Global
 		{09C10CDB-AEC6-4797-8659-C3C84CBAB143}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09C10CDB-AEC6-4797-8659-C3C84CBAB143}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09C10CDB-AEC6-4797-8659-C3C84CBAB143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{388CD2F0-541D-44AF-B4BC-997AAC6C84EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{388CD2F0-541D-44AF-B4BC-997AAC6C84EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{388CD2F0-541D-44AF-B4BC-997AAC6C84EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{388CD2F0-541D-44AF-B4BC-997AAC6C84EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

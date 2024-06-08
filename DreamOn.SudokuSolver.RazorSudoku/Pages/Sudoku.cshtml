@@ -1,0 +1,35 @@
+﻿@page
+@model DreamOn.SudokuSolver.RazorSudoku.Pages.SudokuModel
+@{
+    ViewData["Title"] = "Sudoku";
+}
+
+<form method="post">
+    <textarea name="PageValues.SudokuPuzzle" class="noscrollbars" onkeyup="autoGrow(this);">@Model.PageValues.SudokuPuzzle</textarea>
+    <input type="submit" value="Submit" />
+    <input type="reset" />
+    <textarea name="PageValues.SudokuSolution" class="noscrollbars" onkeyup="autoGrow(this);">@Model.PageValues.SudokuSolution</textarea>
+</form>
+
+
+<div class="row">
+    <div class="col">
+        <div class="sudoku-grid">
+            @foreach (char number in Model.PageValues.SudokuPuzzle)
+            {
+                <div class="cell">@number</div>
+            }
+        </div>
+    </div>
+    <div class="col">
+        <div class="sudoku-grid">
+            @foreach (char number in Model.PageValues.SudokuSolution)
+            {
+                <div class="cell">@number</div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
