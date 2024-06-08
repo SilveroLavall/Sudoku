@@ -29,6 +29,8 @@ static void Start(List<string> puzzles)
         Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
         response.DisplayPuzzle();
         response.DisplaySolutions();
+        //response.RenderSolutions();
+        response.RenderPuzzleAndSolutions();
         response.DisplayInvalid();
         Console.WriteLine($"Solved in {response.CalculationCycle} cycles.");
         Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");

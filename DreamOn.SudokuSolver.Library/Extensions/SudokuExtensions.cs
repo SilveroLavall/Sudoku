@@ -2,6 +2,10 @@
 {
     public  static class SudokuExtensions
     {
+        public static string ConvertToString(this int[] numbers)
+        {
+            return string.Concat(numbers.Select(s => s.ToString()));
+        }
         public static void DisplayPuzzle(this SudokuResponse response)
         {
             Console.WriteLine($"0 {SudokuStates.Unsolved} {response.Puzzle.ConvertToString()}");
@@ -22,9 +26,14 @@
                 Console.WriteLine($"{i++} {SudokuStates._Invalid} {invalid.ConvertToString()}");
             }
         }
-        public static string ConvertToString(this int[] numbers)
+        public static void RenderToConsole(this int[] numbers)
         {
-            return string.Concat(numbers.Select(s => s.ToString()));
+            var sudokuString = string.Concat(numbers.Select(s => s.ToString()));
+            for (int i = 0; i < 9; i++) 
+            {
+                Console.WriteLine(sudokuString.Substring(9*i,9));
+            }
+            Console.WriteLine();
         }
     }
 }
