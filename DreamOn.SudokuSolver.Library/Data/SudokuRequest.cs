@@ -1,17 +1,23 @@
 ﻿namespace DreamOn.SudokuSolver.Library.Data;
 
-internal class SudokuRequest
+public class SudokuRequest
 {
-    public int[] Puzzle { get; set; }
+    public string Input { get; set; } = string.Empty;
+    public int[] Puzzle { get; set; } = [];
     public bool IsValid { get; set; }
+
+    public SudokuRequest()
+    {
+    }
 
     public SudokuRequest(string sudokuString)
     {
-        Puzzle = ConvertSudokuString(sudokuString ?? string.Empty);
+        Input = sudokuString ?? string.Empty;
+        Puzzle = ConvertToSudokuPuzzle(Input);
         IsValid = Puzzle.Length == 81;
     }
 
-    private static int[] ConvertSudokuString(string sudokuString)
+    private static int[] ConvertToSudokuPuzzle(string sudokuString)
     {
         return sudokuString
             .Select(s => Convert.ToInt32(s) - 48)

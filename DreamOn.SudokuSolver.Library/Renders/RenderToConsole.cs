@@ -4,7 +4,7 @@ public static class RenderToConsole
 {
     public static void RenderPuzzleAndSolutions(this SudokuResponse sudokuResponse)
     {
-        List<string> sudokus = [sudokuResponse.Puzzle.ConvertToString()];
+        List<string> sudokus = [sudokuResponse.SudokuRequest.Puzzle.ConvertToString()];
         sudokus.AddRange(sudokuResponse.Solutions.Select(s => s.ConvertToString()));
 
         Console.WriteLine();

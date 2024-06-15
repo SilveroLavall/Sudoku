@@ -13,20 +13,20 @@ internal class SudokuSolver(SudokuResponse Response)
     public SudokuResponse SolveSudokuParallel()
     {
         ++Response.CalculationCycle;
-        switch (CheckSudokuState(Response.Puzzle))
+        switch (CheckSudokuState(Response.SudokuRequest.Puzzle))
         {
             case SudokuStates.Unsolved:
-                var index = Array.IndexOf(Response.Puzzle, 0);
-                Parallel.ForEach(GetOptions(index, Response.Puzzle), option =>
+                var index = Array.IndexOf(Response.SudokuRequest.Puzzle, 0);
+                Parallel.ForEach(GetOptions(index, Response.SudokuRequest.Puzzle), option =>
                 {
-                    SolveSudoku(UpdateNewSudokuNumber(index, option, Response.Puzzle));
+                    SolveSudoku(UpdateNewSudokuNumber(index, option, Response.SudokuRequest.Puzzle));
                 });
                 break;
             case SudokuStates._Invalid:
-                Response.InvalidPuzzles.Add(Response.Puzzle);
+                Response.InvalidPuzzles.Add(Response.SudokuRequest.Puzzle);
                 break;
             case SudokuStates.__Solved:
-                Response.Solutions.Add(Response.Puzzle);
+                Response.Solutions.Add(Response.SudokuRequest.Puzzle);
                 if (Response.Solutions.Count > 0) Continue = false;
                 break;
             default:
@@ -49,7 +49,7 @@ internal class SudokuSolver(SudokuResponse Response)
         }
         else if (IsRowsInvalid(sudokuNumbers))
         {
-            Response.InvalidPuzzles.Add(Response.Puzzle);
+            Response.InvalidPuzzles.Add(Response.SudokuRequest.Puzzle);
         }
         else
         {

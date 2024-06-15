@@ -8,7 +8,7 @@
         }
         public static void DisplayPuzzle(this SudokuResponse response)
         {
-            Console.WriteLine($"0 {SudokuStates.Unsolved} {response.Puzzle.ConvertToString()}");
+            Console.WriteLine($"0 {SudokuStates.Unsolved} {response.SudokuRequest.Puzzle.ConvertToString()}");
         }
         public static void DisplaySolutions(this SudokuResponse response)
         {

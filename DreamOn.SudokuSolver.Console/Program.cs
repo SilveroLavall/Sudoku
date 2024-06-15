@@ -19,21 +19,17 @@ static void Start(List<string> puzzles)
 {
     foreach (var puzzle in puzzles)
     {
-        var watch = new Stopwatch();
         Console.WriteLine("******************");
         Console.WriteLine(puzzle);
         Console.WriteLine($"{DateTime.Now} Stopwatch word gestart.");
-        watch.Start();
         var response = SudokuEngine.SolveSudoku(puzzle);
-        watch.Stop();
         Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
         response.DisplayPuzzle();
         response.DisplaySolutions();
-        //response.RenderSolutions();
         response.RenderPuzzleAndSolutions();
         response.DisplayInvalid();
         Console.WriteLine($"Solved in {response.CalculationCycle} cycles.");
-        Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
+        Console.WriteLine($"Execution Time: {response.ElapsedMilliseconds} ms");
         Console.WriteLine("******************");
     }
 }
