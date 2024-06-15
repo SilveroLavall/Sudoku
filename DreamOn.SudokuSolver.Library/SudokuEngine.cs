@@ -6,11 +6,11 @@ public class SudokuEngine
 
     public static SudokuResponse SolveSudoku(string sudokuPuzzle)
     {
-        var sudokuValidator = new SudokuValidator(sudokuPuzzle);
-        var response = new SudokuResponse(sudokuValidator.Puzzle);
+        var sudokuRequest = new SudokuRequest(sudokuPuzzle);
+        var response = new SudokuResponse(sudokuRequest.Puzzle);
 
-        return sudokuValidator.IsValid 
+        return sudokuRequest.IsValid 
             ? new SudokuSolver(response).SolveSudokuParallel()
-            : response.AddInvalidPuzzle(sudokuValidator.Puzzle);
+            : response.AddInvalidPuzzle(sudokuRequest.Puzzle);
     }
 }

@@ -1,43 +1,31 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using DreamOn.SudokuSolver.Library;
-using DreamOn.SudokuSolver.Library.Extensions;
+using DreamOn.SudokuSolver.Library.Data;
 
 namespace DreamOn.SudokuSolver.RazorSudoku.Pages;
 
-public class SudokuModel : PageModel
+public class SudokuModel(ILogger<SudokuModel> logger) : PageModel
 {
     public class PageModelValues
     {
-        public string SudokuPuzzle { get; set; }
-        public string SudokuSolution { get; set; }
-
-        public PageModelValues()
-        {
-            SudokuPuzzle = string.Empty;
-            SudokuSolution = string.Empty;
-        }
+        public string SudokuPuzzle { get; set; } = string.Empty;
+        public string SudokuSolution { get; set; } = string.Empty;
     }
 
     [BindProperty]
-    public PageModelValues PageValues { get; set; }
-    private readonly ILogger<SudokuModel> Logger;
+    public PageModelValues PageValues { get; set; } = new PageModelValues();
 
-    public SudokuModel(ILogger<SudokuModel> logger)
-    {
-        PageValues = new PageModelValues();
-        Logger = logger;
-    }
     public void OnGet()
     {
-        Logger.LogInformation("OnGet");
+        logger.LogInformation("OnGet");
     }
     public IActionResult OnPost()
     {
-        Logger.LogInformation("OnGet");
-        Logger.LogInformation("{SudokuString}", PageValues.SudokuPuzzle);
+        logger.LogInformation("OnPost");
+        logger.LogInformation("{SudokuString}", PageValues.SudokuPuzzle);
         var response = SudokuEngine.SolveSudoku(PageValues.SudokuPuzzle);
-        PageValues.SudokuSolution = response.Solutions.First().ConvertToString();
+        PageValues.SudokuPuzzle = response.Puzzle.ConvertToString();
+        PageValues.SudokuSolution = response.Solutions.Count > 0
+            ? response.Solutions.First().ConvertToString()
+            : string.Empty;
         return Page();
     }
 }

@@ -1,13 +1,13 @@
-﻿namespace DreamOn.SudokuSolver.Library.Providers;
+﻿namespace DreamOn.SudokuSolver.Library.Data;
 
-internal class SudokuValidator
+internal class SudokuRequest
 {
-    public bool IsValid { get; set; }
     public int[] Puzzle { get; set; }
+    public bool IsValid { get; set; }
 
-    public SudokuValidator(string sudokuString)
+    public SudokuRequest(string sudokuString)
     {
-        Puzzle = ConvertSudokuString(sudokuString);
+        Puzzle = ConvertSudokuString(sudokuString ?? string.Empty);
         IsValid = Puzzle.Length == 81;
     }
 

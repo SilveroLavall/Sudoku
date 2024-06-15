@@ -4,32 +4,66 @@
     ViewData["Title"] = "Sudoku";
 }
 
-<form method="post">
-    <textarea name="PageValues.SudokuPuzzle" class="noscrollbars" onkeyup="autoGrow(this);">@Model.PageValues.SudokuPuzzle</textarea>
-    <input type="submit" value="Submit" />
-    <input type="reset" />
-    <textarea name="PageValues.SudokuSolution" class="noscrollbars" onkeyup="autoGrow(this);">@Model.PageValues.SudokuSolution</textarea>
+<form method="post" id="post-sudoku-puzzle">
 </form>
 
-
 <div class="row">
-    <div class="col">
-        <div class="sudoku-grid">
-            @foreach (char number in Model.PageValues.SudokuPuzzle)
-            {
-                <div class="cell">@number</div>
-            }
-        </div>
+    <div class="col-2">
+        <label for="select-sudoku">Select a Sudoku Puzzle</label>
     </div>
-    <div class="col">
-        <div class="sudoku-grid">
-            @foreach (char number in Model.PageValues.SudokuSolution)
-            {
-                <div class="cell">@number</div>
-            }
-        </div>
+    <div class="col-6">
+        <select id="select-sudoku">
+            <option value="" selected disabled>-- Please select an example puzzle --</option>
+            <option value="000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-Blanco">000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-Blanco</option>
+            <option value="111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-Invalid">111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-Invalid</option>
+            <option value="060080420-015060378-000400060-100604830-306010705-080350000-830940000-072130900-009020610-Easy">060080420-015060378-000400060-100604830-306010705-080350000-830940000-072130900-009020610-Easy</option>
+            <option value="060400000-300001000-107030005-920000030-000004600-000005009-005020000-704000010-000006800-Extreme-B">060400000-300001000-107030005-920000030-000004600-000005009-005020000-704000010-000006800-Extreme-B</option>
+        </select>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-2">
+        <label for="textarea-sudoku-puzzle">Or fill in your own ...</label>
+    </div>
+    <div class="col-6">
+        <textarea id="textarea-sudoku-puzzle" name="PageValues.SudokuPuzzle" class="noscrollbars" required form="post-sudoku-puzzle" onkeyup="autoGrow(this);">@Model.PageValues.SudokuPuzzle</textarea>
+    </div>
+    <input type="submit" form="post-sudoku-puzzle" value="Submit" />
+</div>
 
+<div class="row">
+    <div class="col-4">
+        @if (!string.IsNullOrEmpty(Model.PageValues.SudokuPuzzle))
+        {
+            <div class="sudoku-grid">
+                @foreach (char number in Model.PageValues.SudokuPuzzle)
+                {
+                    <div class="cell">@number</div>
+                }
+            </div>
+        }
+    </div>
+    <div class="col-4">
+        @if (!string.IsNullOrEmpty(Model.PageValues.SudokuSolution))
+        {
+            <div class="sudoku-grid">
+                @foreach (char number in Model.PageValues.SudokuSolution)
+                {
+                    <div class="cell">@number</div>
+                }
+            </div>
+        }
+    </div>
+</div>
 
+<div class="row">
+    <div class="col">
+    </div>
+</div>
+
+<script>
+    document.getElementById("select-sudoku").addEventListener("change", (event) => {
+        document.getElementById("textarea-sudoku-puzzle").value = event.target.value;
+    });
+</script>
