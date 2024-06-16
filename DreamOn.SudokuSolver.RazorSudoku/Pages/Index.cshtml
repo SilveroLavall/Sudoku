@@ -7,36 +7,40 @@
 <form method="post" id="post-sudoku-puzzle">
 </form>
 
+<!-- Select Sudoku -->
 <div class="row">
-    <div class="col-2">
-        <label for="select-sudoku">Select a Sudoku Puzzle</label>
+    <div class="col-8">
+        <div class="form-floating">
+            <select class="form-select" id="select-sudoku">
+                <option value="" selected disabled>-- ... ... ... --</option>
+                <option value="000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-Blanco">000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-Blanco</option>
+                <option value="111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-Invalid">111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-Invalid</option>
+                <option value="060080420-015060378-000400060-100604830-306010705-080350000-830940000-072130900-009020610-Easy">060080420-015060378-000400060-100604830-306010705-080350000-830940000-072130900-009020610-Easy</option>
+                <option value="060400000-300001000-107030005-920000030-000004600-000005009-005020000-704000010-000006800-Extreme-B">060400000-300001000-107030005-920000030-000004600-000005009-005020000-704000010-000006800-Extreme-B</option>
+                <option value="000309000-000000068-070000000-800040000-000700100-206000000-000970000-000086000-030000500-Benchmark">000309000-000000068-070000000-800040000-000700100-206000000-000970000-000086000-030000500-Benchmark</option>
+            </select>
+            <label for="select-sudoku">Select a Sudoku Puzzle</label>
+        </div>
     </div>
-    <div class="col-6">
-        <select id="select-sudoku">
-            <option value="" selected disabled>-- Please select an example puzzle --</option>
-            <option value="000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-Blanco">000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-Blanco</option>
-            <option value="111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-Invalid">111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-Invalid</option>
-            <option value="060080420-015060378-000400060-100604830-306010705-080350000-830940000-072130900-009020610-Easy">060080420-015060378-000400060-100604830-306010705-080350000-830940000-072130900-009020610-Easy</option>
-            <option value="060400000-300001000-107030005-920000030-000004600-000005009-005020000-704000010-000006800-Extreme-B">060400000-300001000-107030005-920000030-000004600-000005009-005020000-704000010-000006800-Extreme-B</option>
-        </select>
+</div>
+<!-- Input -->
+<div class="row mt-2">
+    <div class="col-8">
+        <div class="form-floating">
+            @* <textarea class="form-control noscrollbars" required id="textarea-sudoku-puzzle" name="PageValues.SudokuPuzzle" form="post-sudoku-puzzle" onkeyup="autoGrow(this);">@Model.PageValues.SudokuPuzzle</textarea> *@
+            <textarea class="form-control" required id="textarea-sudoku-puzzle" name="PageValues.Input" style="height: 100px" form="post-sudoku-puzzle">@Model.PageValues.Input</textarea>
+            <label for="textarea-sudoku-puzzle">Or fill in your own ...</label>
+        </div>
     </div>
+</div>
+<!-- Submit -->
+<div class="row mt-2">
+    <input type="submit" class="btn btn-primary" form="post-sudoku-puzzle" value="Solve Puzzle" />
 </div>
 
 <div class="row mt-2">
-    <div class="col-2">
-        <label for="textarea-sudoku-puzzle">Or fill in your own ...</label>
-    </div>
-    <div class="col-6">
-        <textarea id="textarea-sudoku-puzzle" name="PageValues.SudokuPuzzle" class="noscrollbars" required form="post-sudoku-puzzle" onkeyup="autoGrow(this);">@Model.PageValues.SudokuPuzzle</textarea>
-    </div>
-</div>
-
-<div class="row mt-2">
-    <input type="submit" form="post-sudoku-puzzle" value="Solve Puzzle" />
-</div>
-
-<div class="row mt-2">
-    <div class="col-4">
+    <!-- Puzzle -->
+    <div class="col-3">
         @if (!string.IsNullOrEmpty(Model.PageValues.SudokuPuzzle))
         {
             <div class="sudoku-grid">
@@ -47,7 +51,8 @@
             </div>
         }
     </div>
-    <div class="col-4">
+    <!-- Solution -->
+    <div class="col-3">
         @if (!string.IsNullOrEmpty(Model.PageValues.SudokuSolution))
         {
             <div class="sudoku-grid">
@@ -58,12 +63,28 @@
             </div>
         }
     </div>
-   <div class="col-4">
-       <table>
-           <thead>
-               <tr><th>Property</th><th>Value</th></tr>
-           </thead>
+    <!-- Table -->
+    <div class="col-6">
+        <table class="table table-striped table-info table-hover">
+            <thead>
+                <tr><th>Property</th><th>Value</th></tr>
+            </thead>
             <tbody>
+                <tr>
+                    <td>Input</td>
+                    <td class="text-break">@Model.PageData.SudokuResponse.SudokuRequest.Input</td>
+                </tr>
+                <tr>
+                    <td>Puzzle</td>
+                    <td class="text-break">@Model.PageData.SudokuResponse.SudokuRequest.Puzzle.ConvertToString()</td>
+                </tr>
+                @if (Model.PageData.SudokuResponse.Solutions.Any())
+                {
+                    <tr>
+                        <td>Solution</td>
+                        <td class="text-break">@Model.PageData.SudokuResponse.Solutions[0].ConvertToString()</td>
+                    </tr>
+                }
                 <tr>
                     <td>BeginDateTime</td>
                     <td>@Model.PageData.SudokuResponse.BeginDateTime</td>
@@ -82,7 +103,22 @@
                 </tr>
             </tbody>
         </table>
-   </div>
+    </div>
+    <div class="row">
+        <!-- Solution -->
+        <div class="col-3">
+            @if (!string.IsNullOrEmpty(Model.PageValues.SudokuSolution))
+            {
+                <div class="choosenumber-grid">
+                    @foreach (char number in Model.PageValues.SudokuSolution.Take(9))
+                    {
+                        <div class="cell">@number</div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
 </div>
 
 <script>

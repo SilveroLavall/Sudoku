@@ -4,6 +4,7 @@ public class SudokuModel(ILogger<SudokuModel> logger) : PageModel
 {
     public class PageModelValues
     {
+        public string Input { get; set; } = string.Empty;
         public string SudokuPuzzle { get; set; } = string.Empty;
         public string SudokuSolution { get; set; } = string.Empty;
     }
@@ -24,10 +25,11 @@ public class SudokuModel(ILogger<SudokuModel> logger) : PageModel
     {
         logger.LogInformation("OnPost");
         logger.LogInformation("{SudokuString}", PageValues.SudokuPuzzle);
-        PageData.SudokuResponse = SudokuEngine.SolveSudoku(PageValues.SudokuPuzzle);
+        PageData.SudokuResponse = SudokuEngine.SolveSudoku(PageValues.Input);
+        PageValues.Input = PageData.SudokuResponse.SudokuRequest.Input;
         PageValues.SudokuPuzzle = PageData.SudokuResponse.SudokuRequest.Puzzle.ConvertToString();
         PageValues.SudokuSolution = PageData.SudokuResponse.Solutions.Count > 0
-            ? PageData.SudokuResponse.Solutions.First().ConvertToString()
+            ? PageData.SudokuResponse.Solutions[0].ConvertToString()
             : string.Empty;
         return Page();
     }

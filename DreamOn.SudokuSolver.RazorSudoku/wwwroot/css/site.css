@@ -21,12 +21,6 @@ body {
   margin-bottom: 60px;
 }
 
-textarea.noscrollbars {
-    overflow: hidden;
-    width: 300px;
-    height: 100px;
-}
-
 .sudoku-grid {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
@@ -44,4 +38,13 @@ textarea.noscrollbars {
     font-weight: bold;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
+}
+
+.choosenumber-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1px;
+    border: 1px solid #000;
+    width: 93px;
 }
