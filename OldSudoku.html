@@ -1,0 +1,137 @@
+﻿
+<html>
+<head>
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 180px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 50%;
+            left: 150%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .sudokumatrix td {
+            background-color: aqua;
+            border: 1px solid black;
+        }
+
+        .sudokumatrix span {
+            display: inline-block;
+            background-color: yellow;
+            width: 18px;
+            height: 18px;
+            font-weight: normal;
+            text-align: center
+        }
+
+        input {
+            width: 20px;
+            height: 20px;
+        }
+
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class='tooltip'>
+        <h2>Hi Earthling,</h2>
+        <span class='tooltiptext'>Human@192.168.6.215</span>
+    </div>
+    <p>You have requested me to solve this sudoku:<br></p>
+    <table class='sudokumatrix'>
+        <tr>
+            <td>
+                <span>7</span><span>0</span><span>5</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><br>
+                <span>0</span><span>4</span><span>0</span><span>0</span><span>0</span><span>0</span><span>2</span><span>6</span><span>0</span><br>
+                <span>0</span><span>0</span><span>0</span><span>8</span><span>0</span><span>0</span><span>0</span><span>7</span><span>0</span><br>
+                <span>0</span><span>0</span><span>0</span><span>2</span><span>0</span><span>0</span><span>8</span><span>0</span><span>0</span><br>
+                <span>0</span><span>3</span><span>0</span><span>0</span><span>9</span><span>5</span><span>0</span><span>0</span><span>1</span><br>
+                <span>0</span><span>0</span><span>0</span><span>4</span><span>0</span><span>0</span><span>5</span><span>0</span><span>0</span><br>
+                <span>9</span><span>5</span><span>3</span><span>6</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><br>
+                <span>2</span><span>7</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>4</span><span>0</span><br>
+                <span>6</span><span>0</span><span>0</span><span>0</span><span>0</span><span>2</span><span>0</span><span>0</span><span>0</span>
+            </td>
+        </tr>
+    </table>
+    <p>My quantum unit knows the following 1 solutions:</p>
+    <table class='sudokumatrix'>
+        <tr>
+            <td>
+                <span>7</span><span>6</span><span>5</span><span>9</span><span>2</span><span>3</span><span>4</span><span>1</span><span>8</span><br>
+                <span>8</span><span>4</span><span>9</span><span>1</span><span>5</span><span>7</span><span>2</span><span>6</span><span>3</span><br>
+                <span>3</span><span>1</span><span>2</span><span>8</span><span>4</span><span>6</span><span>9</span><span>7</span><span>5</span><br>
+                <span>5</span><span>9</span><span>7</span><span>2</span><span>6</span><span>1</span><span>8</span><span>3</span><span>4</span><br>
+                <span>4</span><span>3</span><span>8</span><span>7</span><span>9</span><span>5</span><span>6</span><span>2</span><span>1</span><br>
+                <span>1</span><span>2</span><span>6</span><span>4</span><span>3</span><span>8</span><span>5</span><span>9</span><span>7</span><br>
+                <span>9</span><span>5</span><span>3</span><span>6</span><span>1</span><span>4</span><span>7</span><span>8</span><span>2</span><br>
+                <span>2</span><span>7</span><span>1</span><span>5</span><span>8</span><span>9</span><span>3</span><span>4</span><span>6</span><br>
+                <span>6</span><span>8</span><span>4</span><span>3</span><span>7</span><span>2</span><span>1</span><span>5</span><span>9</span><br>
+            </td>
+        </tr>
+    </table>
+    <p>Your cpu based computer would have needed 137548 cycles to calculate this.</p>
+    <p>Because of limitations on your network, it took me 180 milliseconds to present this to you.</p>
+    <p>Regards,<br>MrDreamOn</p>
+    <hr />
+    <p>Please, test my knowledge again:</p>
+    <table>
+        <tr>
+            <td>
+                <form>
+                    <input type='number' id='n0' name='n0' value='7'><input type='number' id='n1' name='n1' value='0'><input type='number' id='n2' name='n2' value='5'><input type='number' id='n3' name='n3' value='0'><input type='number' id='n4' name='n4' value='0'><input type='number' id='n5' name='n5' value='0'><input type='number' id='n6' name='n6' value='0'><input type='number' id='n7' name='n7' value='0'><input type='number' id='n8' name='n8' value='0'><br>
+                    <input type='number' id='n9' name='n9' value='0'><input type='number' id='n10' name='n10' value='4'><input type='number' id='n11' name='n11' value='0'><input type='number' id='n12' name='n12' value='0'><input type='number' id='n13' name='n13' value='0'><input type='number' id='n14' name='n14' value='0'><input type='number' id='n15' name='n15' value='2'><input type='number' id='n16' name='n16' value='6'><input type='number' id='n17' name='n17' value='0'><br>
+                    <input type='number' id='n18' name='n18' value='0'><input type='number' id='n19' name='n19' value='0'><input type='number' id='n20' name='n20' value='0'><input type='number' id='n21' name='n21' value='8'><input type='number' id='n22' name='n22' value='0'><input type='number' id='n23' name='n23' value='0'><input type='number' id='n24' name='n24' value='0'><input type='number' id='n25' name='n25' value='7'><input type='number' id='n26' name='n26' value='0'><br>
+                    <input type='number' id='n27' name='n27' value='0'><input type='number' id='n28' name='n28' value='0'><input type='number' id='n29' name='n29' value='0'><input type='number' id='n30' name='n30' value='2'><input type='number' id='n31' name='n31' value='0'><input type='number' id='n32' name='n32' value='0'><input type='number' id='n33' name='n33' value='8'><input type='number' id='n34' name='n34' value='0'><input type='number' id='n35' name='n35' value='0'><br>
+                    <input type='number' id='n36' name='n36' value='0'><input type='number' id='n37' name='n37' value='3'><input type='number' id='n38' name='n38' value='0'><input type='number' id='n39' name='n39' value='0'><input type='number' id='n40' name='n40' value='9'><input type='number' id='n41' name='n41' value='5'><input type='number' id='n42' name='n42' value='0'><input type='number' id='n43' name='n43' value='0'><input type='number' id='n44' name='n44' value='1'><br>
+                    <input type='number' id='n45' name='n45' value='0'><input type='number' id='n46' name='n46' value='0'><input type='number' id='n47' name='n47' value='0'><input type='number' id='n48' name='n48' value='4'><input type='number' id='n49' name='n49' value='0'><input type='number' id='n50' name='n50' value='0'><input type='number' id='n51' name='n51' value='5'><input type='number' id='n52' name='n52' value='0'><input type='number' id='n53' name='n53' value='0'><br>
+                    <input type='number' id='n54' name='n54' value='9'><input type='number' id='n55' name='n55' value='5'><input type='number' id='n56' name='n56' value='3'><input type='number' id='n57' name='n57' value='6'><input type='number' id='n58' name='n58' value='1'><input type='number' id='n59' name='n59' value='0'><input type='number' id='n60' name='n60' value='0'><input type='number' id='n61' name='n61' value='0'><input type='number' id='n62' name='n62' value='0'><br>
+                    <input type='number' id='n63' name='n63' value='2'><input type='number' id='n64' name='n64' value='7'><input type='number' id='n65' name='n65' value='0'><input type='number' id='n66' name='n66' value='0'><input type='number' id='n67' name='n67' value='0'><input type='number' id='n68' name='n68' value='0'><input type='number' id='n69' name='n69' value='0'><input type='number' id='n70' name='n70' value='4'><input type='number' id='n71' name='n71' value='0'><br>
+                    <input type='number' id='n72' name='n72' value='6'><input type='number' id='n73' name='n73' value='0'><input type='number' id='n74' name='n74' value='0'><input type='number' id='n75' name='n75' value='0'><input type='number' id='n76' name='n76' value='0'><input type='number' id='n77' name='n77' value='2'><input type='number' id='n78' name='n78' value='0'><input type='number' id='n79' name='n79' value='0'><input type='number' id='n80' name='n80' value='0'>
+                </form>
+            </td>
+            <td>
+                <button type='button' onclick='SolveSudoku()'>Test Me!</button>
+            </td>
+        </tr>
+    </table>
+    <hr />
+    <script>
+        function SolveSudoku() {
+            window.location.href = 'https://dreamonazurefunctionssudokusolver20200505200928.azurewebsites.net/api/SolveSudokoPuzzle?code=1ahyDdIA6P30KNFcpoCes8/6Qr3V3aI19zXF0pZBPP66MSgEFCcGYg==&puzzle=' + document.getElementById('n0').value + document.getElementById('n1').value + document.getElementById('n2').value + document.getElementById('n3').value + document.getElementById('n4').value + document.getElementById('n5').value + document.getElementById('n6').value + document.getElementById('n7').value + document.getElementById('n8').value + ',' + document.getElementById('n9').value + document.getElementById('n10').value + document.getElementById('n11').value + document.getElementById('n12').value + document.getElementById('n13').value + document.getElementById('n14').value + document.getElementById('n15').value + document.getElementById('n16').value + document.getElementById('n17').value + ',' + document.getElementById('n18').value + document.getElementById('n19').value + document.getElementById('n20').value + document.getElementById('n21').value + document.getElementById('n22').value + document.getElementById('n23').value + document.getElementById('n24').value + document.getElementById('n25').value + document.getElementById('n26').value + ',' + document.getElementById('n27').value + document.getElementById('n28').value + document.getElementById('n29').value + document.getElementById('n30').value + document.getElementById('n31').value + document.getElementById('n32').value + document.getElementById('n33').value + document.getElementById('n34').value + document.getElementById('n35').value + ',' + document.getElementById('n36').value + document.getElementById('n37').value + document.getElementById('n38').value + document.getElementById('n39').value + document.getElementById('n40').value + document.getElementById('n41').value + document.getElementById('n42').value + document.getElementById('n43').value + document.getElementById('n44').value + ',' + document.getElementById('n45').value + document.getElementById('n46').value + document.getElementById('n47').value + document.getElementById('n48').value + document.getElementById('n49').value + document.getElementById('n50').value + document.getElementById('n51').value + document.getElementById('n52').value + document.getElementById('n53').value + ',' + document.getElementById('n54').value + document.getElementById('n55').value + document.getElementById('n56').value + document.getElementById('n57').value + document.getElementById('n58').value + document.getElementById('n59').value + document.getElementById('n60').value + document.getElementById('n61').value + document.getElementById('n62').value + ',' + document.getElementById('n63').value + document.getElementById('n64').value + document.getElementById('n65').value + document.getElementById('n66').value + document.getElementById('n67').value + document.getElementById('n68').value + document.getElementById('n69').value + document.getElementById('n70').value + document.getElementById('n71').value + ',' + document.getElementById('n72').value + document.getElementById('n73').value + document.getElementById('n74').value + document.getElementById('n75').value + document.getElementById('n76').value + document.getElementById('n77').value + document.getElementById('n78').value + document.getElementById('n79').value + document.getElementById('n80').value;
+        }</script>
+    </body>
+</html>
