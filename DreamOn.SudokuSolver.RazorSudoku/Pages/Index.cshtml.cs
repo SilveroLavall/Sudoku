@@ -22,8 +22,8 @@ public class SudokuModel(ILogger<SudokuModel> logger) : PageModel
     }
 
     [BindProperty]
-    public PageModelValues PageValues { get; set; } = new PageModelValues();
-    public PageModelData PageData { get; set; } = new PageModelData();
+    public PageModelValues PageValues { get; set; } = new();
+    public PageModelData PageData { get; set; } = new();
 
     public void OnGet()
     {
