@@ -7,31 +7,45 @@
 <form method="post" id="post-sudoku-puzzle">
 </form>
 
-<!-- Select Sudoku -->
-<div class="row">
-    <div class="col-8">
-        <div class="form-floating">
-            <select class="form-select" id="select-sudoku">
-                <option value="" selected disabled>... ... ...</option>
-                <option value="000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-Blanco">000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-000000000-Blanco</option>
-                <option value="111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-Invalid">111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-111111111-Invalid</option>
-                <option value="060080420-015060378-000400060-100604830-306010705-080350000-830940000-072130900-009020610-Easy">060080420-015060378-000400060-100604830-306010705-080350000-830940000-072130900-009020610-Easy</option>
-                <option value="060400000-300001000-107030005-920000030-000004600-000005009-005020000-704000010-000006800-Extreme-B">060400000-300001000-107030005-920000030-000004600-000005009-005020000-704000010-000006800-Extreme-B</option>
-                <option value="000309000-000000068-070000000-800040000-000700100-206000000-000970000-000086000-030000500-Benchmark">000309000-000000068-070000000-800040000-000700100-206000000-000970000-000086000-030000500-Benchmark</option>
-            </select>
-            <label for="select-sudoku">Select a Sudoku Puzzle</label>
-        </div>
-    </div>
-</div>
-<!-- Input -->
 <div class="row mt-2">
-    <div class="col-8">
-        <div class="form-floating">
-            <textarea class="form-control" required id="textarea-sudoku-puzzle" name="PageValues.Input" style="height: 100px" form="post-sudoku-puzzle">@Model.PageValues.Input</textarea>
-            <label for="textarea-sudoku-puzzle">Or fill in your own ...</label>
+    <!-- Fillin Puzzle -->
+    <div class="col-3">
+        <div class="sudoku-grid">
+            @foreach (char number in "000000000000000000000000000000000000000000000000000000000000000000000000000000000")
+            {
+                <div class="cell" name="sudokuNumberPosition">@number</div>
+            }
         </div>
     </div>
+    <div class="col-9">
+        <div class="row">
+            <!-- Select Sudoku -->
+            <div class="col">
+                <div class="form-floating">
+                    <select class="form-select" id="select-sudoku">
+                        <option value="" selected disabled>... ... ...</option>
+                        @foreach (var item in Model.PageData.SudokuPuzzleOptions)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                    <label for="select-sudoku">Select a Sudoku Puzzle</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <!-- Input -->
+            <div class="col">
+                <div class="form-floating">
+                    <textarea class="form-control" required id="textarea-sudoku-puzzle" name="PageValues.Input" style="height: 100px" form="post-sudoku-puzzle">@Model.PageValues.Input</textarea>
+                    <label for="textarea-sudoku-puzzle">Or fill in your own ...</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
 <!-- Submit -->
 <div class="row mt-2">
     <input type="submit" class="btn btn-primary" form="post-sudoku-puzzle" value="Solve Puzzle" />
@@ -62,9 +76,6 @@
             </div>
         }
     </div>
-</div>
-
-<div class="row mt-2">
     <!-- Information Table -->
     <div class="col-6">
         <table class="table table-striped table-info table-hover">
@@ -72,93 +83,27 @@
                 <tr><th>Property</th><th>Value</th></tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Input</td>
-                    <td class="text-break">@Model.PageData.SudokuResponse.SudokuRequest.Input</td>
-                </tr>
-                <tr>
-                    <td>Puzzle</td>
-                    <td class="text-break">@Model.PageData.SudokuResponse.SudokuRequest.Puzzle.ConvertToString()</td>
-                </tr>
+                <tr><td>Input</td><td class="text-break">@Model.PageData.SudokuResponse.SudokuRequest.Input</td></tr>
+                <tr><td>Puzzle</td><td class="text-break">@Model.PageData.SudokuResponse.SudokuRequest.Puzzle.ConvertToString()</td></tr>
                 @if (Model.PageData.SudokuResponse.Solutions.Any())
                 {
-                    <tr>
-                        <td>Solution</td>
-                        <td class="text-break">@Model.PageData.SudokuResponse.Solutions[0].ConvertToString()</td>
-                    </tr>
+                    <tr><td>Solution</td><td class="text-break">@Model.PageData.SudokuResponse.Solutions[0].ConvertToString()</td></tr>
                 }
-                <tr>
-                    <td>BeginDateTime</td>
-                    <td>@Model.PageData.SudokuResponse.BeginDateTime</td>
-                </tr>
-                <tr>
-                    <td>EndDateTime</td>
-                    <td>@Model.PageData.SudokuResponse.EndDateTime</td>
-                </tr>
-                <tr>
-                    <td>ElapsedMilliseconds</td>
-                    <td>@Model.PageData.SudokuResponse.ElapsedMilliseconds</td>
-                </tr>
-                <tr>
-                    <td>CalculationCycle</td>
-                    <td>@Model.PageData.SudokuResponse.CalculationCycle</td>
-                </tr>
+                <tr><td>BeginDateTime</td><td>@Model.PageData.SudokuResponse.BeginDateTime</td></tr>
+                <tr><td>EndDateTime</td><td>@Model.PageData.SudokuResponse.EndDateTime</td></tr>
+                <tr><td>ElapsedMilliseconds</td><td>@Model.PageData.SudokuResponse.ElapsedMilliseconds</td></tr>
+                <tr><td>CalculationCycle</td><td>@Model.PageData.SudokuResponse.CalculationCycle</td></tr>
             </tbody>
         </table>
     </div>
 </div>
 
-<div class="row mt-5">
-    <!-- Demo 9 numbers -->
-    <div class="col-3">
-        @if (!string.IsNullOrEmpty(Model.PageValues.SudokuSolution))
-        {
-            <div class="choosenumber-grid">
-                @foreach (char number in Model.PageValues.SudokuSolution.Take(9))
-                {
-                    <div class="cell">@number</div>
-                }
-            </div>
-        }
-    </div>
-</div>
-
-<div class="row mt-5">
-    <!-- Demo 9 buttons -->
-    <div class="col-3">
-        @if (!string.IsNullOrEmpty(Model.PageValues.SudokuSolution))
-        {
-            <div class="choosenumber-grid">
-                @foreach (char number in Model.PageValues.SudokuSolution.Take(9))
-                {
-                    <div class="cell"><button type="button" name="numberButton" value="@number">@number</button></div>
-                }
-            </div>
-        }
-    </div>
-    <div class="col-3">
-        <input type="text" id="SelectedNumber" />
-    </div>
-</div>
-
-
-<div class="row mt-2">
-    <!-- Fillin Puzzle -->
-    <div class="col-3">
-        <div class="sudoku-grid">
-            @foreach (char number in "000000000000000000000000000000000000000000000000000000000000000000000000000000000")
-            {
-                <div class="cell" name="numberPuzzle">@number</div>
-            }
-        </div>
-    </div>
-</div>
-
-<dialog id="SelectNumberDialog">
+<!-- Dialog Select Number -->
+<dialog id="SelectNumberDialog" class="SelectNumberDialog">
     <div class="choosenumber-grid">
         @foreach (char number in "123456789")
         {
-            <div class="cell"><button type="button" name="numberButton" value="@number">@number</button></div>
+            <div class="cell"><button type="button" name="sudokuNumberValue" value="@number">@number</button></div>
         }
     </div>
 </dialog>
@@ -166,36 +111,39 @@
 <script>
     class PageLibrary {
         constructor() {
+            this.selectedSudokuPosition = null;
+            this.composedSudokuPuzzle = null;
         }
 
         addListeners() {
             document.getElementById("select-sudoku").addEventListener("change", (event) => this.UseSelectedPuzzle(event));
-            document.querySelectorAll('button[name="numberButton"]').forEach(element => element.addEventListener('click', (element) => this.selectedNumberHandler(element)));
-            document.querySelectorAll('div[name="numberPuzzle"]').forEach(element => element.addEventListener('click', (element) => this.fillInNumberHandler(element)));
+            document.querySelectorAll('div[name="sudokuNumberPosition"]').forEach(element => element.addEventListener('click', (element) => this.SelectSudokuNumberPosition(element)));
+            document.querySelectorAll('button[name="sudokuNumberValue"]').forEach(element => element.addEventListener('click', (element) => this.SelectSudokuNumberValue(element)));
         }
 
         UseSelectedPuzzle(element) {
             document.getElementById("textarea-sudoku-puzzle").value = element.target.value;
         }
 
-        selectedNumberHandler(element) {
-            document.getElementById("SelectedNumber").value = element.target.value;
+        SelectSudokuNumberPosition(element) {
+            this.selectedSudokuPosition = element;
+            const dialog = document.getElementById("SelectNumberDialog");
+            dialog.style.left = this.selectedSudokuPosition.target.offsetLeft + "px";
+            dialog.style.top = this.selectedSudokuPosition.target.offsetTop + "px";
+            dialog.showModal();
+        }
+
+        SelectSudokuNumberValue(element) {
+            // this.selectedSudokuPosition.target.value = element.target.value;
+            this.selectedSudokuPosition.target.innerText = element.target.value;
+            this.composedSudokuPuzzle = "";
+            document.querySelectorAll('div[name="sudokuNumberPosition"]').forEach(number => this.composedSudokuPuzzle += number.innerText);
+            document.getElementById("textarea-sudoku-puzzle").value = this.composedSudokuPuzzle;
             document.getElementById("SelectNumberDialog").close();
         }
 
-        fillInNumberHandler(element) {
-            document.getElementById("SelectNumberDialog").showModal();
-        }
-
-        // selectInquiryHandler(element) {
-        //     document.getElementById('hiddenModerationTicketId').value = element.dataset.rowid;
-        //     document.getElementById('hiddenCategory').value = element.dataset.category;
-        //     document.getElementById("selectTicketForm").submit();
-        // }
-
         initPageLibrary() {
             this.addListeners();
-            // document.getElementById("SelectNumberDialog").showModal();
         }
     }
     var pgl = new PageLibrary();

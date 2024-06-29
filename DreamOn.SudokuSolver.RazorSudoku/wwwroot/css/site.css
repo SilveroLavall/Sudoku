@@ -48,3 +48,8 @@ body {
     border: 1px solid #000;
     width: 93px;
 }
+
+.SelectNumberDialog {
+    margin: 0;
+    position: absolute;
+}
