@@ -7,6 +7,7 @@
         puzzles.Add(args[i]);
     }
     Start(puzzles);
+    Start202406(puzzles);
 }
 else 
 {
@@ -28,6 +29,24 @@ static void Start(List<string> puzzles)
         response.DisplaySolutions();
         response.RenderPuzzleAndSolutions();
         response.DisplayInvalid();
+        Console.WriteLine($"Solved in {response.CalculationCycle} cycles.");
+        Console.WriteLine($"Execution Time: {response.ElapsedMilliseconds} ms");
+        Console.WriteLine("******************");
+    }
+}
+static void Start202406(List<string> puzzles)
+{
+    foreach (var puzzle in puzzles)
+    {
+        Console.WriteLine("******************");
+        Console.WriteLine(puzzle);
+        Console.WriteLine($"{DateTime.Now} Stopwatch word gestart.");
+        var response = SudokuEngine.SolveSudoku202406(puzzle);
+        Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
+        //response.DisplayPuzzle();
+        response.Solutions.DisplaySolutions();
+        //response.RenderPuzzleAndSolutions();
+        //response.DisplayInvalid();
         Console.WriteLine($"Solved in {response.CalculationCycle} cycles.");
         Console.WriteLine($"Execution Time: {response.ElapsedMilliseconds} ms");
         Console.WriteLine("******************");
