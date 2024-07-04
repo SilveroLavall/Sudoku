@@ -98,6 +98,51 @@ internal class SudokuEngine202406(SudokuPuzzle sudokuPuzzle)
     };
     private bool Continue = true;
 
+    public SudokuSolutions SolveSudokuPuzzleParallel()
+    {
+        ++SudokuSolutions.CalculationCycle;
+        switch (CheckSudokuState(SudokuPuzzle.Puzzle))
+        {
+            case SudokuState.Unsolved:
+                var index = Array.IndexOf(SudokuPuzzle.Puzzle, 0);
+                var used = GetOptionsUsage(index, SudokuPuzzle.Puzzle);
+                List<int> options = [];
+                for (int i = 1; i < 10; i++)
+                {
+                    if(!used[i]) options.Add(i);
+                }
+                Parallel.ForEach(options, option =>
+                {
+                    SolveSudokuPuzzle(UpdateNewSudokuNumber(index, option, SudokuPuzzle.Puzzle));
+                });
+                break;
+            case SudokuState._Invalid:
+                SudokuSolutions.InvalidPuzzles.Add(SudokuPuzzle.Puzzle);
+                break;
+            case SudokuState.__Solved:
+                SudokuSolutions.Solutions.Add(SudokuPuzzle.Puzzle);
+                if (SudokuSolutions.Solutions.Count > 0) Continue = false;
+                break;
+            default:
+                break;
+        }
+        return SudokuSolutions;
+    }
+
+    private static SudokuState CheckSudokuState(int[] puzzle)
+    {
+        if (puzzle.Contains(0))
+        {
+            return SudokuState.Unsolved;
+        }
+        if (IsRowsInvalid(puzzle))
+        {
+            return SudokuState._Invalid;
+        }
+        return SudokuState.__Solved;
+    }
+
+
     public SudokuSolutions SolveSudokuPuzzle()
     {
         SolveSudokuPuzzle(SudokuPuzzle.Puzzle);

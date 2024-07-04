@@ -23,7 +23,7 @@
             int i = 0;
             foreach (var solution in solutions)
             {
-                Console.WriteLine($"{i++} {SudokuStates.__Solved} {solution.ConvertToString()}");
+                Console.WriteLine($"{i++} {SudokuState.__Solved} {solution.ConvertToString()}");
             }
         }
         #endregion
@@ -33,14 +33,14 @@
 
         public static void DisplayPuzzle(this SudokuResponse response)
         {
-            Console.WriteLine($"0 {SudokuStates.Unsolved} {response.SudokuRequest.Puzzle.ConvertToString()}");
+            Console.WriteLine($"0 {SudokuState.Unsolved} {response.SudokuRequest.Puzzle.ConvertToString()}");
         }
         public static void DisplaySolutions(this SudokuResponse response)
         {
             int i = 0;
             foreach (var solution in response.Solutions)
             {
-                Console.WriteLine($"{i++} {SudokuStates.__Solved} {solution.ConvertToString()}");
+                Console.WriteLine($"{i++} {SudokuState.__Solved} {solution.ConvertToString()}");
             }
         }
         public static void DisplayInvalid(this SudokuResponse response)
@@ -48,7 +48,7 @@
             int i = 0;
             foreach (var invalid in response.InvalidPuzzles)
             {
-                Console.WriteLine($"{i++} {SudokuStates._Invalid} {invalid.ConvertToString()}");
+                Console.WriteLine($"{i++} {SudokuState._Invalid} {invalid.ConvertToString()}");
             }
         }
         public static void RenderToConsole(this int[] numbers)

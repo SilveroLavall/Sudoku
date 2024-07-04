@@ -3,7 +3,7 @@
 internal class SudokuSolver(SudokuResponse Response)
 {
     private bool Continue = true;
-    internal enum SudokuStates
+    internal enum SudokuState
     {
         Unsolved,
         __Solved,
@@ -15,17 +15,17 @@ internal class SudokuSolver(SudokuResponse Response)
         ++Response.CalculationCycle;
         switch (CheckSudokuState(Response.SudokuRequest.Puzzle))
         {
-            case SudokuStates.Unsolved:
+            case SudokuState.Unsolved:
                 var index = Array.IndexOf(Response.SudokuRequest.Puzzle, 0);
                 Parallel.ForEach(GetOptions(index, Response.SudokuRequest.Puzzle), option =>
                 {
                     SolveSudoku(UpdateNewSudokuNumber(index, option, Response.SudokuRequest.Puzzle));
                 });
                 break;
-            case SudokuStates._Invalid:
+            case SudokuState._Invalid:
                 Response.InvalidPuzzles.Add(Response.SudokuRequest.Puzzle);
                 break;
-            case SudokuStates.__Solved:
+            case SudokuState.__Solved:
                 Response.Solutions.Add(Response.SudokuRequest.Puzzle);
                 if (Response.Solutions.Count > 0) Continue = false;
                 break;
@@ -57,17 +57,17 @@ internal class SudokuSolver(SudokuResponse Response)
             if (Response.Solutions.Count > 0) Continue = false;
         }
     }
-    private static SudokuStates CheckSudokuState(int[] numbers)
+    private static SudokuState CheckSudokuState(int[] numbers)
     {
         if (numbers.Contains(0))
         {
-            return SudokuStates.Unsolved;
+            return SudokuState.Unsolved;
         }
         if (IsRowsInvalid(numbers))
         {
-            return SudokuStates._Invalid;
+            return SudokuState._Invalid;
         }
-        return SudokuStates.__Solved;
+        return SudokuState.__Solved;
     }
     private static bool IsRowsInvalid(int[] numbers)
     {
