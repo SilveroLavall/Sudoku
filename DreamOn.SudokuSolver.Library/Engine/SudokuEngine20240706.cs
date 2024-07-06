@@ -101,7 +101,12 @@ internal class SudokuEngine20240706(SudokuPuzzle sudokuPuzzle)
 
     public SudokuSolutions SolveSudokuPuzzle()
     {
+        SudokuSolutions.BeginDateTime = DateTime.Now;
+        var stopWatch = Stopwatch.StartNew();
         SolveSudokuPuzzleParallel();
+        stopWatch.Stop();
+        SudokuSolutions.EndDateTime = DateTime.Now;
+        SudokuSolutions.ElapsedMilliseconds = stopWatch.ElapsedMilliseconds;
         return SudokuSolutions;
     }
     private void SolveSudokuPuzzleParallel()
@@ -117,10 +122,10 @@ internal class SudokuEngine20240706(SudokuPuzzle sudokuPuzzle)
                 Parallel.ForEach(options, option => { SolveSudokuPuzzle(UpdateNewSudokuNumber(index, option, SudokuPuzzle.Puzzle)); });
                 break;
             case SudokuState._Invalid:
-                SudokuSolutions.InvalidPuzzles.Add(SudokuPuzzle.Puzzle);
+                SudokuSolutions.AddInvalidPuzzle(SudokuPuzzle.Puzzle);
                 break;
             case SudokuState.__Solved:
-                SudokuSolutions.Solutions.Add(SudokuPuzzle.Puzzle);
+                SudokuSolutions.AddSolution(SudokuPuzzle.Puzzle);
                 if (SudokuSolutions.Solutions.Count > 0) Continue = false;
                 break;
             default:
@@ -147,7 +152,7 @@ internal class SudokuEngine20240706(SudokuPuzzle sudokuPuzzle)
         }
         else if (IsSudokuValid(puzzle))
         {
-            SudokuSolutions.Solutions.Add(puzzle);
+            SudokuSolutions.AddSolution(puzzle);
             if (SudokuSolutions.Solutions.Count > 0) Continue = false;
         }
     }

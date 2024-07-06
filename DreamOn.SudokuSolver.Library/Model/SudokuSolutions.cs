@@ -1,4 +1,4 @@
-﻿namespace DreamOn.SudokuSolver.Library.Data;
+﻿namespace DreamOn.SudokuSolver.Library.Model;
 
 public class SudokuSolutions
 {

@@ -33,7 +33,7 @@ public class SudokuModel(ILogger<SudokuModel> logger) : PageModel
     {
         logger.LogInformation("OnPost");
         logger.LogInformation("{SudokuString}", PageValues.SudokuPuzzle);
-        PageData.SudokuResponse = SudokuEngine.SolveSudoku20240706(PageValues.Input);
+        PageData.SudokuResponse = new SudokuApi().SolveSudoku(PageValues.Input);
         PageValues.Input = PageData.SudokuResponse.SudokuRequest.Input;
         PageValues.SudokuPuzzle = PageData.SudokuResponse.SudokuRequest.SudokuPuzzle.Puzzle.ConvertToString();
         PageValues.SudokuSolution = PageData.SudokuResponse.SudokuSolutions.Solutions.Count > 0
