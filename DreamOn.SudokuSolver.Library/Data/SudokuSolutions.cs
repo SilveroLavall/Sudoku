@@ -8,4 +8,15 @@ public class SudokuSolutions
     public DateTime BeginDateTime { get; set; }
     public DateTime EndDateTime { get; set; }
     public long ElapsedMilliseconds { get; set; } = 0;
+
+    public SudokuSolutions AddInvalidPuzzle(int[] puzzle)
+    {
+        InvalidPuzzles.Add(puzzle);
+        return this;
+    }
+    public SudokuSolutions AddSolution(int[] puzzle)
+    {
+        Solutions.Add(puzzle);
+        return this;
+    }
 }

@@ -1,6 +1,12 @@
 ﻿namespace DreamOn.SudokuSolver.Library.Data;
 
-internal class SudokuPuzzle
+public class SudokuPuzzle
 {
     public int[] Puzzle { get; set; } = [];
+
+    public SudokuPuzzle() { }
+    public SudokuPuzzle(int[] puzzle) 
+    { 
+        Puzzle = puzzle;
+    }
 }

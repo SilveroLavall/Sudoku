@@ -2,6 +2,6 @@
 
 global using DreamOn.SudokuSolver.Library.Data;
 global using DreamOn.SudokuSolver.Library.Engine;
+global using DreamOn.SudokuSolver.Library.Engine.Enums;
 global using DreamOn.SudokuSolver.Library.Extensions;
 global using DreamOn.SudokuSolver.Library.Providers;
-global using static DreamOn.SudokuSolver.Library.SudokuSolver;

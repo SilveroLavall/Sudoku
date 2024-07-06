@@ -3,24 +3,12 @@
 public class SudokuResponse
 {
     public SudokuRequest SudokuRequest { get; set; } = new();
-    public List<int[]> Solutions { get; set; } = [];
-    public List<int[]> InvalidPuzzles { get; set; } = [];
-    public int CalculationCycle { get; set; } = 0;
-    public DateTime BeginDateTime { get; set; }
-    public DateTime EndDateTime { get; set; }
-    public long ElapsedMilliseconds { get; set; } = 0;
+    public SudokuSolutions SudokuSolutions { get; set; } = new();
 
-    public SudokuResponse()
-    {
-    }
-    public SudokuResponse(SudokuRequest request)
+    public SudokuResponse() { }
+    public SudokuResponse(SudokuRequest request, SudokuSolutions sudokuSolutions)
     {
         SudokuRequest = request;
-    }
-
-    public SudokuResponse AddInvalidPuzzle(int[] puzzle)
-    {
-        InvalidPuzzles.Add(puzzle);
-        return this;
+        SudokuSolutions = sudokuSolutions;
     }
 }

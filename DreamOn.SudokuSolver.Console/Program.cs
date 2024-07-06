@@ -6,8 +6,8 @@
         Console.WriteLine($"args[{i}]={args[i]}");
         puzzles.Add(args[i]);
     }
-    Start(puzzles);
-    Start(puzzles);
+    //Start(puzzles);
+    //Start(puzzles);
     Start202406(puzzles);
     Start202406(puzzles);
     Start202407(puzzles);
@@ -22,24 +22,24 @@ else
     Console.WriteLine("DreamOn.SudokuSolver.Console.exe 000309000000000068070000000800040000000700100206000000000970000000086000030000500");
 }
 
-static void Start(List<string> puzzles)
-{
-    foreach (var puzzle in puzzles)
-    {
-        Console.WriteLine("******************");
-        Console.WriteLine(puzzle);
-        Console.WriteLine($"{DateTime.Now} Stopwatch word gestart.");
-        var response = SudokuEngine.SolveSudoku(puzzle);
-        Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
-        response.DisplayPuzzle();
-        response.DisplaySolutions();
-        //response.RenderPuzzleAndSolutions();
-        response.DisplayInvalid();
-        Console.WriteLine($"Solved in {response.CalculationCycle} cycles.");
-        Console.WriteLine($"Execution Time: {response.ElapsedMilliseconds} ms");
-        Console.WriteLine("******************");
-    }
-}
+//static void Start(List<string> puzzles)
+//{
+//    foreach (var puzzle in puzzles)
+//    {
+//        Console.WriteLine("******************");
+//        Console.WriteLine(puzzle);
+//        Console.WriteLine($"{DateTime.Now} Stopwatch word gestart.");
+//        var response = SudokuEngine.SolveSudoku(puzzle);
+//        Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
+//        response.DisplayPuzzle();
+//        response.DisplaySolutions();
+//        //response.RenderPuzzleAndSolutions();
+//        response.DisplayInvalid();
+//        Console.WriteLine($"Solved in {response.CalculationCycle} cycles.");
+//        Console.WriteLine($"Execution Time: {response.ElapsedMilliseconds} ms");
+//        Console.WriteLine("******************");
+//    }
+//}
 static void Start202406(List<string> puzzles)
 {
     foreach (var puzzle in puzzles)
@@ -88,11 +88,11 @@ static void Start20240706(List<string> puzzles)
         var response = SudokuEngine.SolveSudoku20240706(puzzle);
         Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
         //response.DisplayPuzzle();
-        response.Solutions.DisplaySolutions();
+        response.SudokuSolutions.Solutions.DisplaySolutions();
         //response.RenderPuzzleAndSolutions();
         //response.DisplayInvalid();
-        Console.WriteLine($"Solved in {response.CalculationCycle} cycles.");
-        Console.WriteLine($"Execution Time: {response.ElapsedMilliseconds} ms");
+        Console.WriteLine($"Solved in {response.SudokuSolutions.CalculationCycle} cycles.");
+        Console.WriteLine($"Execution Time: {response.SudokuSolutions.ElapsedMilliseconds} ms");
         Console.WriteLine("******************");
     }
 }

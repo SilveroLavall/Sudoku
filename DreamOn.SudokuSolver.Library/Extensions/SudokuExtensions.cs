@@ -33,12 +33,12 @@
 
         public static void DisplayPuzzle(this SudokuResponse response)
         {
-            Console.WriteLine($"0 {SudokuState.Unsolved} {response.SudokuRequest.Puzzle.ConvertToString()}");
+            Console.WriteLine($"0 {SudokuState.Unsolved} {response.SudokuRequest.SudokuPuzzle.Puzzle.ConvertToString()}");
         }
         public static void DisplaySolutions(this SudokuResponse response)
         {
             int i = 0;
-            foreach (var solution in response.Solutions)
+            foreach (var solution in response.SudokuSolutions.Solutions)
             {
                 Console.WriteLine($"{i++} {SudokuState.__Solved} {solution.ConvertToString()}");
             }
@@ -46,7 +46,7 @@
         public static void DisplayInvalid(this SudokuResponse response)
         {
             int i = 0;
-            foreach (var invalid in response.InvalidPuzzles)
+            foreach (var invalid in response.SudokuSolutions.InvalidPuzzles)
             {
                 Console.WriteLine($"{i++} {SudokuState._Invalid} {invalid.ConvertToString()}");
             }
