@@ -51,4 +51,17 @@ public class SudokuEngine
         sudokuSolutions.EndDateTime = endDateTime;
         return sudokuSolutions;
     }
+    public static SudokuSolutions SolveSudoku20240706(string sudokuPuzzleString)
+    {
+        SudokuPuzzle sudokuPuzzle = new() { Puzzle = sudokuPuzzleString.ConvertToSudokuPuzzle() };
+        var beginDateTime = DateTime.Now;
+        var stopWatch = Stopwatch.StartNew();
+        SudokuSolutions sudokuSolutions = new SudokuEngine20240706(sudokuPuzzle).SolveSudokuPuzzle();
+        stopWatch.Stop();
+        var endDateTime = DateTime.Now;
+        sudokuSolutions.ElapsedMilliseconds = stopWatch.ElapsedMilliseconds;
+        sudokuSolutions.BeginDateTime = beginDateTime;
+        sudokuSolutions.EndDateTime = endDateTime;
+        return sudokuSolutions;
+    }
 }
