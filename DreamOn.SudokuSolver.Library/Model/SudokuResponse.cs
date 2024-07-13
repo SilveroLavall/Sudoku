@@ -2,13 +2,13 @@
 
 public class SudokuResponse
 {
-    public SudokuRequest SudokuRequest { get; set; } = new();
-    public SudokuSolutions SudokuSolutions { get; set; } = new();
+    public SudokuRequest SudokuRequest { get; } = new();
+    public SudokuSolutions SudokuSolutions { get; } = new();
 
     public SudokuResponse() { }
-    public SudokuResponse(SudokuRequest request, SudokuSolutions sudokuSolutions)
+    public SudokuResponse(SudokuRequest sudokuRequest, SudokuSolutions sudokuSolutions)
     {
-        SudokuRequest = request;
+        SudokuRequest = sudokuRequest;
         SudokuSolutions = sudokuSolutions;
     }
 }
