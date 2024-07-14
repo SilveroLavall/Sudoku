@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DreamOn.SudokuSolver.Library\DreamOn.SudokuSolver.Library.csproj" />
+    <ProjectReference Include="..\DreamOn.SudokuSolver.Scanner\DreamOn.SudokuSolver.Scanner.csproj" />
   </ItemGroup>
 
   <ItemGroup>

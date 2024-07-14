@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspose.OCR" Version="24.6.0" />
+    <PackageReference Include="IronOcr" Version="2024.7.13" />
+    <PackageReference Include="IronOcr.Languages.Financial" Version="2020.11.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\Screenshot 2024-07-13 164518.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\Screenshot 2024-07-13 165558.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\Sudoku_20240713155045.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
