@@ -18,4 +18,21 @@ public class SudokuApi : ISudokuApi
             : new SudokuSolutions();
         return new(sudokuRequest, sudokuSolutions);
     }
+
+    public SudokuResponse SolveSudokuNextLevel(SudokuRequest sudokuRequest)
+    {
+        SudokuSolutions sudokuSolutions = sudokuRequest.IsValid
+            ? new SudokuEngine20240718(sudokuRequest.SudokuPuzzle).SolveSudokuPuzzle()
+            : new SudokuSolutions();
+        return new(sudokuRequest, sudokuSolutions);
+    }
+
+    public SudokuResponse SolveSudokuNextLevel(string sudokuString)
+    {
+        SudokuRequest sudokuRequest = new(sudokuString);
+        SudokuSolutions sudokuSolutions = sudokuRequest.IsValid
+            ? new SudokuEngine20240718(sudokuRequest.SudokuPuzzle).SolveSudokuPuzzle()
+            : new SudokuSolutions();
+        return new(sudokuRequest, sudokuSolutions);
+    }
 }

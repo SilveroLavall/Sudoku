@@ -10,6 +10,10 @@
     Start20240706(puzzles);
     Start20240706(puzzles);
     Start20240706(puzzles);
+    StartNextLevel(puzzles);
+    StartNextLevel(puzzles);
+    StartNextLevel(puzzles);
+    StartNextLevel(puzzles);
 }
 else 
 {
@@ -27,6 +31,25 @@ static void Start20240706(List<string> puzzles)
         Console.WriteLine(puzzle);
         Console.WriteLine($"{DateTime.Now} Stopwatch word gestart.");
         var response = new SudokuApi().SolveSudoku(puzzle);
+        Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
+        //response.DisplayPuzzle();
+        response.SudokuSolutions.Solutions.DisplaySolutions();
+        //response.RenderPuzzleAndSolutions();
+        //response.DisplayInvalid();
+        Console.WriteLine($"Solved in {response.SudokuSolutions.CalculationCycle} cycles.");
+        Console.WriteLine($"Execution Time: {response.SudokuSolutions.ElapsedMilliseconds} ms");
+        Console.WriteLine("******************");
+    }
+}
+
+static void StartNextLevel(List<string> puzzles)
+{
+    foreach (var puzzle in puzzles)
+    {
+        Console.WriteLine("******************");
+        Console.WriteLine(puzzle);
+        Console.WriteLine($"{DateTime.Now} Stopwatch word gestart.");
+        var response = new SudokuApi().SolveSudokuNextLevel(puzzle);
         Console.WriteLine($"{DateTime.Now} Stopwatch is gestopt.");
         //response.DisplayPuzzle();
         response.SudokuSolutions.Solutions.DisplaySolutions();
